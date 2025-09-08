@@ -1,0 +1,19 @@
+<link rel="icon" type="image/png" href="images/mainlogo.png">
+<link rel="stylesheet" href="css/all.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/slick.css">
+<link rel="stylesheet" href="css/venobox.min.css">
+<link rel="stylesheet" href="css/scroll_button.css">
+<link rel="stylesheet" href="css/custom_spacing.css">
+<link rel="stylesheet" href="css/jquery.exzoom.css">
+<link rel="stylesheet" href="css/nice-select.css">
+<link rel="stylesheet" href="css/percircle.css">
+<link rel="stylesheet" href="css/ranger_slider.css">
+<link rel="stylesheet" href="css/select2.min.css">
+<link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="css/mobile_menu.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<link rel="stylesheet" href="css/venobox.min.css">

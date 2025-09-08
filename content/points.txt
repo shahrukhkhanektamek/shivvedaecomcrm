@@ -1,0 +1,20 @@
+1. sponser id show krni hai tree me 
+2. only paid wali id ka pair count ho 
+3. dowline income galat ban rhi hai
+4. Pages names (Dashboard)
+   1. remove club matiching 
+   2. remove package matching
+   3. all matching set in starting 
+   4. total left and right paid and unpaid 
+   5. add all incomes parts
+   6. left and right ka joing link
+   7. rank table
+   8. repurchase table list 
+   9. 
+5. side menus
+   1. dashboard, new register, activation, diposit, repurchase, team , Profile, Wallet (I:- jo fund liya or uska use kiya hai uski history, II:- ), rewards and gift, suport, earning,  
+
+
+6. user khud id activate kr skta hai lekin pehle addmin se vo request krega tab uske wallet me paise aenge aenge
+7. jab user koi id lgae to usko madal show ho or usko uski detail show ho jae
+8. tree me show detail (like royal team , mobile no. )
