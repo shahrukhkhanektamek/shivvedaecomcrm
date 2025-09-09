@@ -28,7 +28,7 @@ use App\Http\Controllers\Web\HomeController;
 
 use App\Http\Controllers\Web\WebPackageController;
 
-
+use App\Http\Controllers\FaceController;
 
 
 
@@ -171,6 +171,11 @@ Route::group(['prefix'=>'packages', 'as'=>'packages.', 'namespace'=>'User'], fun
     Route::get('load_data', [WebPackageController::class, 'load_data'])->name('load_data');
 
 });
+
+
+Route::post('/compare-faces', [FaceController::class, 'compare']);
+Route::post('/upload-image', [FaceController::class, 'uploadToS3']);
+
 
 
 Route::get('tree', [HomeController::class, 'tree']);

@@ -14,7 +14,7 @@ function base_path($var='')
     {
      return __DIR__;
     }
-    else
+    else 
     {
         return __DIR__.'/'.$var;
     }
