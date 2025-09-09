@@ -7,7 +7,7 @@
     <div class="container">
         <ul class="nav nav-pills nav-justified">
             <li class="nav-item">
-                <a class="nav-link" href="ecommerce-shop.html">
+                <a class="nav-link" href="{{url('salesman/product')}}">
                     <span>
                         <i class="nav-icon bi bi-shop"></i>
                         <span class="nav-text">Shop</span>
@@ -15,29 +15,21 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="ecommerce-orders.html">
+                <a class="nav-link" href="{{url('salesman/my-order')}}">
                     <span>
                         <i class="nav-icon bi bi-bag-check"></i>
                         <span class="nav-text">Orders</span>
                     </span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="ecommerce-customers.html" class="nav-link ">
+            <!-- <li class="nav-item">
+                <a href="{{url('salesman/customers')}}" class="nav-link ">
                     <span>
                         <i class="nav-icon bi bi-people"></i>
                         <span class="nav-text">Customers</span>
                     </span>
                 </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="ecommerce-dashboard.html">
-                    <span>
-                        <i class="nav-icon bi bi-person-gear"></i>
-                        <span class="nav-text">Admin</span>
-                    </span>
-                </a>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a class="nav-link" href="{{url('salesman/cart')}}">
                     <span>

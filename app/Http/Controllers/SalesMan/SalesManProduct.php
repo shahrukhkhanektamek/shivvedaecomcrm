@@ -61,7 +61,7 @@ class SalesManProduct extends Controller
       $session = Session::get('user');
       $user_id = $session['id'];
         
-      
+      $search = $request->search;
       if(!empty($request->status)) $status = $request->status;
 
       $data_list = Product::whereIn('product.status',[1])
@@ -71,6 +71,11 @@ class SalesManProduct extends Controller
       })
 
       ->select("product.*",DB::raw("COALESCE(cart.qty, 0) as qty"));
+
+      if(!empty($search))
+      {        
+        $data_list = $data_list->where('product.name','LIKE',"%{$search}%");
+      }
       
 
       $data_list = $data_list->latest()->paginate($limit);

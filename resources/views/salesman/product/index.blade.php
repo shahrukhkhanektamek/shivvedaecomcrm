@@ -6,7 +6,12 @@
         <div class="container mt-3 mt-lg-4 mt-xl-5" id="main-content">
            
 
-
+            <div class="col-12 col-md-12 col-lg-12 mb-3 mb-lg-2">
+                <div class="input-group">
+                    <span class="input-group-text bg-none"><i class="bi bi-search"></i></span>
+                    <input class="form-control pe-0 bg-none" type="search" placeholder="Customer..." id="search">
+                </div>
+            </div>
             <!-- products -->
             <div class="row gx-3" id="data-list">
                 
@@ -35,7 +40,7 @@
       url =main_url+"?"+data;
       load_table();
    }));
-   $(document).on("click", ".search",(function(e) {
+   $(document).on("click", "#search",(function(e) {
       get_url_data();
       url =main_url+"?"+data;
       load_table();

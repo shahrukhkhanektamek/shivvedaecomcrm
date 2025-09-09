@@ -240,7 +240,7 @@ class SalesManCheckout extends Controller
         $responseCode = 200;
         $result['status'] = $responseCode;
         $result['message'] = 'Order Place Successfully';
-        $result['url'] = route('user.checkout.success').'?order_id='.$order_id;
+        $result['url'] = route('salesman.checkout.success').'?order_id='.$order_id;
         $result['action'] = $action;
         $result['data'] = [];
         return response()->json($result, $responseCode);

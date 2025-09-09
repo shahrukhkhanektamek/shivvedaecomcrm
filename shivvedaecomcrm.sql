@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2025 at 10:47 PM
+-- Generation Time: Sep 09, 2025 at 03:39 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -107,6 +107,13 @@ CREATE TABLE `cart` (
   `slug` text DEFAULT NULL,
   `is_delete` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `product_id`, `product_name`, `user_id`, `qty`, `price`, `add_date_time`, `status`, `add_by`, `update_date_time`, `update_history`, `slug`, `is_delete`) VALUES
+(47, 193202, 'SEA BUCKTHORN JUICE', 4, 2, 1999, '2025-09-09 14:11:28', 1, 4, '2025-09-09 14:11:28', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -4360,7 +4367,11 @@ INSERT INTO `login_history` (`id`, `user_id`, `role`, `ip_address`, `date`, `tim
 (1335, '4', 3, '::1', '2025-09-08', '22:49:01', '', NULL, '', NULL, 1, 'e10adc3949ba59abbe56e057f20f883e'),
 (1336, '4', 3, '::1', '2025-09-08', '22:49:11', '', NULL, '', NULL, 1, 'e10adc3949ba59abbe56e057f20f883e'),
 (1337, '4', 3, '192.168.1.61', '2025-09-08', '23:31:30', '', NULL, '', NULL, 1, 'e10adc3949ba59abbe56e057f20f883e'),
-(1338, '4', 3, '192.168.1.37', '2025-09-08', '23:32:48', '', NULL, '', NULL, 1, 'e10adc3949ba59abbe56e057f20f883e');
+(1338, '4', 3, '192.168.1.37', '2025-09-08', '23:32:48', '', NULL, '', NULL, 1, 'e10adc3949ba59abbe56e057f20f883e'),
+(1339, '4', 3, '::1', '2025-09-09', '11:48:29', '', NULL, '', NULL, 1, 'e10adc3949ba59abbe56e057f20f883e'),
+(1340, '4', 3, '192.168.1.17', '2025-09-09', '11:58:19', '', NULL, '', NULL, 1, 'e10adc3949ba59abbe56e057f20f883e'),
+(1341, '4', 3, '192.168.1.32', '2025-09-09', '11:59:42', '', NULL, '', NULL, 1, 'e10adc3949ba59abbe56e057f20f883e'),
+(1342, '4', 3, '::1', '2025-09-09', '14:11:21', '', NULL, '', NULL, 1, 'e10adc3949ba59abbe56e057f20f883e');
 
 -- --------------------------------------------------------
 
@@ -4863,7 +4874,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `branch`, `order_id`, `transaction_id`, `user_id`, `name`, `email`, `phone`, `state`, `city`, `pincode`, `address`, `amount`, `gst`, `final_amount`, `bv`, `wallet_use`, `wallet_amount`, `amount_detail`, `screenshot`, `add_date_time`, `payment_date_time`, `delivered_date_time`, `process_date_time`, `payment_by`, `status`, `add_by`, `update_date_time`, `update_history`, `slug`, `is_delete`) VALUES
-(1, NULL, 17573643234, NULL, 4, 'ss', 'sss', '3523532', '14', 'sfsa', '21421521', NULL, 23037.5, 3141.48, 26179, 21400, NULL, 0, '{\"Sub Total\":23037.52,\"GST\":3141.48,\"Total Amount\":26179,\"Wallet Amount\":0,\"Payable Amount\":23037.52}', 'default.jpg', '2025-09-09 02:15:23', '2025-09-09 02:15:23', NULL, NULL, 'COD', 0, 4, '2025-09-09 02:15:23', NULL, NULL, 0);
+(1, NULL, 17573643234, NULL, 4, 'ss', 'sss', '3523532', '14', 'sfsa', '21421521', NULL, 23037.5, 3141.48, 26179, 21400, NULL, 0, '{\"Sub Total\":23037.52,\"GST\":3141.48,\"Total Amount\":26179,\"Wallet Amount\":0,\"Payable Amount\":23037.52}', 'default.jpg', '2025-09-09 02:15:23', '2025-09-09 02:15:23', NULL, NULL, 'COD', 0, 4, '2025-09-09 02:15:23', NULL, NULL, 0),
+(2, NULL, 17573996154, NULL, 4, 'TEst', 'test@gmail.com', '564564', '13', 'Delhi', '110086', NULL, 1758.24, 239.76, 1998, 1600, NULL, 0, '{\"Sub Total\":1758.24,\"GST\":239.76,\"Total Amount\":1998,\"Wallet Amount\":0,\"Payable Amount\":1758.24}', 'default.jpg', '2025-09-09 12:03:35', '2025-09-09 12:03:35', NULL, NULL, 'COD', 0, 4, '2025-09-09 12:03:35', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -4896,7 +4908,8 @@ CREATE TABLE `order_products` (
 INSERT INTO `order_products` (`id`, `order_id`, `product_id`, `name`, `user_id`, `qty`, `price`, `bv`, `add_date_time`, `status`, `add_by`, `update_date_time`, `update_history`, `slug`, `is_delete`) VALUES
 (1, 17573643234, 193202, 'SEA BUCKTHORN JUICE', 4, 6, 11994, 1700, '2025-09-09 02:15:23', 0, 4, '2025-09-09 02:15:23', NULL, NULL, 0),
 (2, 17573643234, 193201, 'GLUTATHIONE TAB', 4, 8, 7192, 700, '2025-09-09 02:15:23', 0, 4, '2025-09-09 02:15:23', NULL, NULL, 0),
-(3, 17573643234, 193203, 'LIVER DETOX TABLETS', 4, 7, 6993, 800, '2025-09-09 02:15:23', 0, 4, '2025-09-09 02:15:23', NULL, NULL, 0);
+(3, 17573643234, 193203, 'LIVER DETOX TABLETS', 4, 7, 6993, 800, '2025-09-09 02:15:23', 0, 4, '2025-09-09 02:15:23', NULL, NULL, 0),
+(4, 17573996154, 193203, 'LIVER DETOX TABLETS', 4, 2, 1998, 800, '2025-09-09 12:03:35', 0, 4, '2025-09-09 12:03:35', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -6356,7 +6369,7 @@ ALTER TABLE `branch`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `countries`
@@ -6416,7 +6429,7 @@ ALTER TABLE `kyc_option`
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1339;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1343;
 
 --
 -- AUTO_INCREMENT for table `member_log`
@@ -6440,13 +6453,13 @@ ALTER TABLE `offer`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `package`
