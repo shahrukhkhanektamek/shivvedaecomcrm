@@ -58,8 +58,12 @@
     <img id="preview" alt="Preview" />
     <div id="overlay"></div>
   </div>
-  <button id="uploadBtn" style="display:none;margin: 10px auto;">Face Check</button>
+  <button id="checkBtn" style="display:none;margin: 10px auto;">Face Check</button>
   <canvas id="canvas" style="display:none;"></canvas>
+  <div style="margin-top:14px">
+    <strong>Result:</strong>
+    <div id="result" style="margin-top:8px"></div>
+  </div>
 </div>
 
 <div class="container-fluid">
@@ -71,6 +75,8 @@
             method="post" enctype="multipart/form-data" 
             id="form_data_submit" novalidate>
         @csrf
+
+        <input type="hidden" name="image" id="imageUpload" value="">
 
         <div class="form-floating mb-3">
           <input type="text" class="form-control" placeholder="Enter Name" value="" name="name" required>
@@ -120,7 +126,7 @@
   const overlay = document.getElementById('overlay');
   const canvas = document.getElementById('canvas');
   const preview = document.getElementById('preview');
-  const uploadBtn = document.getElementById('uploadBtn');
+  const checkBtn = document.getElementById('checkBtn');
   const form_data_submit = document.getElementById('form_data_submit');
   const scanArea = document.getElementById('scanArea');
 
@@ -155,27 +161,82 @@
     }, 500);
   });
 
+  let dataUrl = '';
   function takePhoto() {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     const ctx = canvas.getContext('2d');
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     
-    const dataUrl = canvas.toDataURL("image/png");
+    dataUrl = canvas.toDataURL("image/png");
     preview.src = dataUrl;
     preview.style.display = "block";
     video.style.display = "none";
-    uploadBtn.style.display = "block";
+    checkBtn.style.display = "block";
+
+    $("#imageUpload").val(dataUrl);
 
     // Save captured image for upload
-    uploadBtn.onclick = () => {
-      form_data_submit.style.display = "block";
-      scanArea.style.display = "none";
-      console.log(dataUrl);
-      return false;
-    };
+    // checkBtn.onclick = () => {
+    //   form_data_submit.style.display = "block";
+    //   scanArea.style.display = "none";
+    //   console.log(dataUrl);
+    //   return false;
+    // };
   }
+
+
+  const btn = document.getElementById('checkBtn');
+  const resDiv = document.getElementById('result');
+
+  btn.addEventListener('click', async () => {
+    resDiv.innerHTML = '<em>Checking…</em>';
+
+    
+
+    const formData = new FormData();
+    formData.append('image', dataUrl);
+
+    try {
+      const resp = await fetch("{{url('salesman/checkout/')}}/compare-faces", {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+      });
+
+      const data = await resp.json();
+
+      if (!resp.ok) {
+        resDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        return;
+      }
+
+      if (data.match === true) {
+        resDiv.innerHTML = `
+          <div style="padding:10px;border-radius:8px;background:#ecfdf5;border:1px solid #bbf7d0">
+            <strong style="color:#065f46">Match found ✅</strong>
+            <div style="margin-top:8px">
+              <div><strong>Target:</strong> ${data.target || ''}</div>
+              <div><strong>Similarity:</strong> ${data.similarity ? data.similarity.toFixed(2) : ''}</div>
+            </div>
+          </div>
+        `;
+        form_data_submit.style.display = "block";
+        scanArea.style.display = "none";
+
+      } else {
+        resDiv.innerHTML = `<div style="padding:10px;border-radius:8px;background:#fff7ed;border:1px solid #ffd8a8"><strong>No match found</strong></div>`;
+      }
+    } catch (err) {
+      resDiv.innerHTML = `<pre>${err.message}</pre>`;
+    }
+  });
 </script>
+
+
+
 </body>
 </html>
 @include("salesman/include/footer")

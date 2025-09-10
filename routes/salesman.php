@@ -93,11 +93,7 @@ Route::group(['prefix'=>'salesman','as'=>'salesman.', 'namespace'=>'User'], func
         });
 
         Route::group(['prefix'=>'scan-face', 'as'=>'scan-face.', 'namespace'=>'Admin'], function(){
-            Route::get('/{p_id?}', [SalesManScanFace::class, 'index'])->name('list');
-            Route::get('load_data', [SalesManScanFace::class, 'load_data'])->name('load_data');
-            Route::get('add', [SalesManScanFace::class, 'add'])->name('add');
-            Route::get('view/{id?}', [SalesManScanFace::class, 'view'])->name('view');
-            Route::post('update', [SalesManScanFace::class, 'update'])->name('update');
+            Route::get('/', [SalesManScanFace::class, 'index'])->name('list');
         });
 
 
@@ -112,6 +108,8 @@ Route::group(['prefix'=>'salesman','as'=>'salesman.', 'namespace'=>'User'], func
             Route::post('check', [SalesManCheckout::class, 'check'])->name('check');
             Route::post('place_order', [SalesManCheckout::class, 'place_order'])->name('place_order');
             Route::get('success', [SalesManCheckout::class, 'success'])->name('success');
+
+            Route::post('compare-faces', [SalesManCheckout::class, 'compare'])->name('compare-faces');
         });
 
         

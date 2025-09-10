@@ -5,6 +5,8 @@ namespace App\Helper;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 // use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
+
 
 class ImageManager
 {
@@ -210,6 +212,15 @@ class ImageManager
     
     public static function uploadAPiImage(string $dir, string $format, $image = null)
     {
+
+        // Path define
+        $storagePath = storage_path('app/public/'.$dir);
+
+        // अगर dir मौजूद नहीं है तो create करो
+        if (!File::exists($storagePath)) {
+            File::makeDirectory($storagePath, 0755, true);
+        }
+
         $imPath = Carbon::now()->toDateString() . "-" . uniqid();
         $imageNameWebp = $imPath.".webp" ;
         if ($image != null) {
@@ -222,17 +233,6 @@ class ImageManager
         } else {
             $imageName = 'default.jpg';
         }
-
-        // if($imageName!='default.jpg' && $imageName!='user.png')
-        // {
-        //     $imagePath = storage_path('app/public/'.$dir).$imageName;
-        //     $rvalue = ImageManager::convertToWebPImagick($imagePath, $imageNameWebp);
-        //     if($rvalue)
-        //     {
-        //         unlink($imagePath);
-        //         $imageName = $imageNameWebp;
-        //     }
-        // }
         return $imageName;
     }
     

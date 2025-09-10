@@ -134,11 +134,11 @@
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
             <!-- main sidebar toggle -->
-            <button class="btn btn-link btn-square sidebar-toggler" type="button" onclick="initSidebar()">
+            <button class="btn btn-link btn-square sidebar-toggler d-none" type="button" onclick="initSidebar()">
                 <i class="sidebar-svg" data-feather="menu"></i>
             </button>
             <!-- logo -->
-            <a class="navbar-brand" href="ecommerce-dashboard.html">
+            <a class="navbar-brand" href="<?php echo e(url('salesman/dashboard')); ?>">
                 <img data-bs-img="light" src="<?php echo e(url('/public/salesman/')); ?>/assets/img/logo.png" alt="" class="avatar avatar-100">
                 <img data-bs-img="dark" src="<?php echo e(url('/public/salesman/')); ?>/assets/img/logo.png" alt="" class="avatar avatar-100">
             </a>
@@ -150,6 +150,10 @@
                 <button class="btn btn-link btn-square btnsunmoon btn-link-header" id="btn-layout-modes-dark-page">
                     <i class="sun mx-auto" data-feather="sun"></i>
                     <i class="moon mx-auto" data-feather="moon"></i>
+                </button>
+
+                <button class="btn btn-link btn-square btnsunmoon btn-link-header logout" style="font-size: 25px;margin: -10px 0 0 0;font-weight: bold !important;color: red;">
+                    <i class="fa bi-box-arrow-right"></i>
                 </button>
                 
               
@@ -168,19 +172,19 @@
             <ul class="nav flex-column menu-active-line mt-3">
                
                 <li class="nav-item">
-                    <a href="dashboard.html" class="nav-link">
+                    <a href="<?php echo e(url('salesman/dashboard')); ?>" class="nav-link">
                         <i class="menu-icon bi bi-columns-gap"></i>
                         <span class="menu-name">Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="customers.html" class="nav-link">
+                    <a href="<?php echo e(url('salesman/customers')); ?>" class="nav-link">
                         <i class="menu-icon bi bi-people"></i>
                         <span class="menu-name">Customers</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="orders.html" class="nav-link">
+                    <a href="<?php echo e(url('salesman/order')); ?>" class="nav-link">
                         <i class="menu-icon bi bi-bag-check"></i>
                         <span class="menu-name">Orders</span>
                     </a>

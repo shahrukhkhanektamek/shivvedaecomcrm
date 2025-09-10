@@ -3,46 +3,18 @@
 
 
         <!-- content -->
-        <div class="container mt-3 mt-lg-4 mt-xl-5" id="main-content">
+        <div class="container mt-3 mt-lg-4 mt-xl-5" id="main-content" style="display:none;">
            
-
-
             <!-- products -->
             <div class="row gx-3">
                 <div class="card bg-none mb-3 mb-lg-4">
                     <div class="card-body">
                         <h6 class="mb-3">Order (7 Items)</h6>
                         <ul class="list-group adminuiux-list-group mb-0" id="data-list">
-                            <li class="list-group-item px-2">
-                                <div class="row gx-3 align-items-center">
-                                    <div class="col-auto">
-                                        <figure class="avatar avatar-50 coverimg rounded" style="background-image: url(&quot;https://www.adminuiux.com/adminuiux/ecommerce-mobile-uiux/assets/img/ecommerce/image-5.jpg&quot;);">
-                                            <img src="assets/img/ecommerce/image-5.jpg" alt="" style="display: none;">
-                                        </figure>
-                                    </div>
-                                    <div class="col-9 col-md-5">
-                                        <p class="mb-0 text-truncated">Bracelet Platinum plated</p>
-                                        <p class="small text-secondary">ID: RT15246630</p>
-                                    </div>
-                                    <div class="col col-md-auto ms-md-auto mt-3 mt-md-0">
-                                        <div class="row gx-2 increamenter">
-                                            <div class="col-auto"><button class="btn btn-sm btn-square btn-theme rounded-circle increamenter-remove" disabled="">-</button></div>
-                                            <div class="col-auto"><input type="number" class="form-control form-control-sm text-center width-50 increamenter-value" placeholder="" value="1"></div>
-                                            <div class="col-auto"><button class="btn btn-sm btn-square btn-theme rounded-circle increamenter-add">+</button></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto text-end mt-3 mt-md-0">
-                                        <h6 class="mb-0">$ 65.00</h6>
-                                        <p class="small text-secondary">1 Item</p>
-                                    </div>
-                                </div>
-                            </li>
                             
                         </ul>
                     </div>
                 </div>
-
-
 
                 <div class="card bg-none mb-3 mb-lg-4 d-none">
                     <div class="card-body">
@@ -77,14 +49,16 @@
                         <button class="btn btn-light mx-1"><i class="bi bi-envelope"></i> Invoice</button>
                     </div>
                 </div>
-
-                            
+           
             </div>
-
-            <a href="<?php echo e(url('salesman/scan-face')); ?>" class="btn btn-success d-block">Checkout</a>
-
-        
+            <a href="<?php echo e(url('salesman/scan-face')); ?>" class="btn btn-success d-block">Checkout</a>        
         </div>
+
+        <div class="container mt-3 mt-lg-4 mt-xl-5" id="cart-empty" style="display:none;">
+            <h1 style="text-align: center;text-transform: uppercase;">Empty Cart</h1>
+        </div>
+
+
 
 
 <script>
@@ -146,8 +120,16 @@
               var data = response.data;
               var cartDetail = data.cartDetail; 
               var cartCount = cartDetail.cartCount;
-              if(cartCount>0) $(".checkout").show();
-              else $(".checkout").hide();
+              if(cartCount>0)
+              {
+                $("#main-content").show();                
+                $("#cart-empty").hide();                
+              }
+              else
+              {
+               $("#main-content").hide();                
+               $("#cart-empty").show();                
+              }
 
               $("#totalBv").html(data.cartDetail.totalBv);
 

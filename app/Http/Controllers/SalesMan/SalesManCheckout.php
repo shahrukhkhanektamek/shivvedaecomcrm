@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Crypt;
 use App\Models\Cart;
 use App\Models\MemberModel;
 use App\Helper\ImageManager;
+
+use Illuminate\Support\Facades\Storage;
+use App\Providers\RekognitionService;
+
+use Aws\S3\S3Client;
  
 class SalesManCheckout extends Controller
 {
@@ -25,10 +30,30 @@ class SalesManCheckout extends Controller
         "keys"=>'id,name',
        );  
 
-      public function __construct()
-      {
+   
+
+    protected $rekognition;
+    protected $s3;
+    protected $bucket;
+
+    public function __construct(RekognitionService $rekognition)
+    {
         Helpers::create_importent_columns($this->arr_values['table_name']);
-      }
+        $this->rekognition = $rekognition;
+
+        // S3 client
+        $this->s3 = new S3Client([
+            'region'    => env('AWS_DEFAULT_REGION', 'us-east-1'),
+            'version'   => 'latest',
+            'credentials' => [
+                'key'    => env('AWS_ACCESS_KEY_ID'),
+                'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            ],
+        ]);
+
+        $this->bucket = env('AWS_BUCKET');
+    }
+
 
     public function index(Request $request)
     {
@@ -78,6 +103,11 @@ class SalesManCheckout extends Controller
         $repurchase_wallet_deduct = 0;
         $wallet_use = $request->payment_mode;
 
+        $name = $request->name;
+        $email = $request->email;
+        $phone = $request->phone;
+        $image = $request->image;
+
 
 
         $cartDetail = MemberModel::cartDetail($user_id);
@@ -87,68 +117,10 @@ class SalesManCheckout extends Controller
 
 
 
-        if($wallet_use==1)
-        {
-            $wallet = MemberModel::getTypeAllIncome($user_id);
-            $repurchase_wallet = @\App\Models\MemberModel::repurchase_wallet($user_id);
-            if($repurchase_wallet>=$cartFinalAmount)
-            {
-                $repurchase_wallet_deduct = $cartFinalAmount;
-            }
-            else
-            {
-                $repurchase_wallet_deduct = $repurchase_wallet;
-            }
-        }
-
-
-        $checkFirstOrder = DB::table("orders")->where(["user_id"=>$user_id,])->where("status","!=",4)->first();
-        if(!empty($checkFirstOrder) && $user->is_paid==0)
-        {
-            $action = 'edit';
-            $responseCode = 200;
-            $result['status'] = $responseCode;
-            $result['message'] = 'Your first order is under review!';
-            $result['action'] = $action;
-            $result['url'] = route('salesman.product.list');
-            $result['data'] = [];
-            return response()->json($result, $responseCode);
-        }
-
-
-
-        $totalBv = $cartDetail['totalBv'];
-        $incomePlan = DB::table('income_plan')->first();
-        if($totalBv<$incomePlan->id_bv && $user->is_paid==0)
-        {
-            $action = 'edit';
-            $responseCode = 200;
-            $result['status'] = $responseCode;
-            $result['message'] = 'You need minimum '.$incomePlan->id_bv.' BV!';
-            $result['action'] = $action;
-            $result['url'] = route('user.product.list');
-            $result['data'] = [];
-            return response()->json($result, $responseCode);
-        }
-
+        $checkFirstOrder = DB::table("orders")->where(["phone"=>$phone,])->first();
         
 
-
-
-        
-        // else if($wallet_use==2)
-        // {
-        //     $action = 'redirect';
-        //     $responseCode = 200;
-        //     $result['status'] = $responseCode;
-        //     $result['message'] = 'Your cart is empty!';
-        //     $result['action'] = $action;
-        //     $result['url'] = route('user.product.list');
-        //     $result['data'] = [];
-        //     return response()->json($result, $responseCode);
-
-        // }
-
+    
 
         $count = count($cartDetail['cartProducts']);
         if($count<1)
@@ -224,16 +196,18 @@ class SalesManCheckout extends Controller
 
         $data['amount_detail'] = json_encode($amount_detail);
 
+        if(empty($checkFirstOrder))
+        {
+            $imageName = ImageManager::uploadAPiImage("upload/faces","png",$image);
+            $data['face'] = $imageName;
+        }
 
 
         DB::table("orders")->insert($data);
-
-        if($repurchase_wallet_deduct>0)
-        {
-            MemberModel::repurchase_wallet_update($user_id,$repurchase_wallet_deduct,2);
-        }
-
         DB::table('cart')->where("user_id",$user_id)->delete();
+
+
+        // print_r(self::uploadBase64ToS3($image));
 
 
         $action = 'placeOrder';
@@ -247,147 +221,107 @@ class SalesManCheckout extends Controller
     }
 
 
+    public function compare(Request $request)
+    {
 
 
-    public function use_wallet(Request $request)
-    {   
-        $id = $request->id;
-        $session = Session::get('user');
-        $user_id = $session['id'];
-
-        $setting = json_decode(DB::table('setting')->where('name','main')->first()->data);
-        $upi = @$setting->upi;
-
-        $user = DB::table("users")->where('id', $user_id)->first();
-        $repurchase_wallet_deduct = 0;
-
-        $wallet_use = $request->payment_mode;
-
-
-        $cartDetail = MemberModel::cartDetail($user_id);
-        $cartTotal = $cartDetail['cartTotal'];
-        $gst = $cartDetail['gst'];
-        $cartFinalAmount = $cartDetail['cartFinalAmount'];
+        
+        // $data = [
+        //     "match"=>true,
+        //     "target"=>"",
+        //     "similarity"=>100,
+        // ];
+        // return response()->json($data);
 
 
 
-        if($wallet_use==1)
-        {
+        // $request->validate([
+        //     'image' => 'required|image|max:4096', // 4MB
+        // ]);
 
-            $wallet = MemberModel::getTypeAllIncome($user_id);
-            $repurchase_wallet = @\App\Models\MemberModel::repurchase_wallet($user_id);
-            if($repurchase_wallet>=$cartFinalAmount)
-            {
-                $repurchase_wallet_deduct = $cartFinalAmount;
-            }
-            else
-            {
-                $repurchase_wallet_deduct = $repurchase_wallet;
-            }
-        }
-        $totalBv = $cartDetail['totalBv'];
-        $incomePlan = DB::table('income_plan')->first();
-        if($totalBv<$incomePlan->id_bv && $user->is_paid==0)
-        {
-            $action = 'edit';
-            $responseCode = 200;
-            $result['status'] = $responseCode;
-            $result['message'] = 'You need minimum '.$incomePlan->id_bv.' BV!';
-            $result['action'] = $action;
-            $result['url'] = route('user.product.list');
-            $result['data'] = [];
-            return response()->json($result, $responseCode);
+        // $sourceFile = $request->file('image');
+        // $sourcePath = $sourceFile->getRealPath();
+        $sourcePath = $request->image;
+
+        // List all images in S3 folder
+        $objects = $this->s3->listObjectsV2([
+            'Bucket' => $this->bucket,
+            'Prefix' => 'faces/',
+        ]);
+
+        if (!isset($objects['Contents']) || empty($objects['Contents'])) {
+            return response()->json(['match' => false]);
         }
 
+        foreach ($objects['Contents'] as $obj) {
+            $targetKey = $obj['Key'];
 
-        $data = [];
-        $data['cartTotal'] = $cartTotal;
-        $data['wallet_amount'] = Helpers::price_formate($repurchase_wallet_deduct);
-        $data['final_amount'] = Helpers::price_formate($cartFinalAmount);
-        $data['payable_amount'] = Helpers::price_formate($cartFinalAmount-$repurchase_wallet_deduct);
+            try {
+                $matches = $this->rekognition->compareFacesLocalVsS3(
+                    $sourcePath,
+                    $this->bucket,
+                    $targetKey,
+                    70 // similarity threshold, you can change to 80
+                );
 
+                if (!empty($matches)) {
+                    return response()->json([
+                        'match' => true,
+                        'target' => $targetKey,
+                        'similarity' => $matches[0]['Similarity'],
+                    ]);
+                }
+            } catch (\Exception $e) {
+                // skip errors
+                continue;
+            }
+        }
 
-       
-        $action = 'view';
-        $responseCode = 200;
-        $result['status'] = $responseCode;
-        $result['message'] = '';
-        $result['action'] = $action;
-        $result['data'] = $data;
-        $result['image'] = 'https://api.qrserver.com/v1/create-qr-code/?data='.urlencode('upi://pay?pa='.$upi.'&am='.$cartFinalAmount-$repurchase_wallet_deduct.'&cu=INR').'&size=300x300';
-        return response()->json($result, $responseCode);
+        return response()->json(['match' => false]);
     }
 
 
-    public function check(Request $request)
-    {   
-        $id = $request->id;
-        $session = Session::get('user');
-        $user_id = $session['id'];
-        $user = DB::table("users")->where('id', $user_id)->first();
-        
-        
+    public function uploadBase64ToS3($image)
+    {
+        // validate
+        // $request->validate([
+        //     'image' => 'required|string', // base64 string
+        // ]);
 
+        // Get base64 string
+        $base64Image = $image;
 
-
-        $cartDetail = MemberModel::cartDetail($user_id);
-        $cartTotal = $cartDetail['cartTotal'];
-        $gst = $cartDetail['gst'];
-        $cartFinalAmount = $cartDetail['cartFinalAmount'];
-
-
-        $checkFirstOrder = DB::table("orders")->where(["user_id"=>$user_id,])->where("status","!=",4)->first();
-        if(!empty($checkFirstOrder) && $user->is_paid==0)
-        {
-            $action = 'view';
-            $responseCode = 400;
-            $result['status'] = $responseCode;
-            $result['message'] = 'Your first order is under review!';
-            $result['action'] = $action;
-            $result['url'] = route('user.product.list');
-            $result['data'] = [];
-            return response()->json($result, $responseCode);
+        // remove "data:image/png;base64," part if exists
+        if (preg_match('/^data:image\/(\w+);base64,/', $base64Image, $type)) {
+            $base64Image = substr($base64Image, strpos($base64Image, ',') + 1);
+            $extension = strtolower($type[1]); // jpg, png, gif
+        } else {
+            return response()->json(['error' => 'Invalid base64 image'], 400);
         }
 
+        // decode base64 to binary
+        $imageData = base64_decode($base64Image);
 
-
-        $totalBv = $cartDetail['totalBv'];
-        $incomePlan = DB::table('income_plan')->first();
-        if($totalBv<$incomePlan->id_bv && $user->is_paid==0)
-        {
-            $action = 'view';
-            $responseCode = 400;
-            $result['status'] = $responseCode;
-            $result['message'] = 'You need minimum '.$incomePlan->id_bv.' BV!';
-            $result['action'] = $action;
-            $result['url'] = route('user.product.list');
-            $result['data'] = [];
-            return response()->json($result, $responseCode);
+        if ($imageData === false) {
+            return response()->json(['error' => 'Base64 decode failed'], 400);
         }
 
+        // create unique file name
+        $fileName = 'faces/' . time() . '_' . uniqid() . '.' . $extension;
 
-        $count = count($cartDetail['cartProducts']);
-        if($count<1)
-        {
-            $action = 'redirect';
-            $responseCode = 200;
-            $result['status'] = $responseCode;
-            $result['message'] = 'Your cart is empty!';
-            $result['action'] = $action;
-            $result['url'] = route('user.product.list');
-            $result['data'] = [];
-            return response()->json($result, $responseCode);
+        // upload to s3
+        Storage::disk('s3')->put($fileName, $imageData, 'public');
 
-        }
-       
-        $action = 'view';
-        $responseCode = 200;
-        $result['status'] = $responseCode;
-        $result['message'] = 'Success';
-        $result['action'] = $action;
-        $result['data'] = [];
-        return response()->json($result, $responseCode);
+        // get file url
+        $url = Storage::disk('s3')->url($fileName);
+
+        return response()->json([
+            'message' => 'Image uploaded successfully',
+            'path' => $fileName,
+            'url' => $url,
+        ]);
     }
+
 
 
    

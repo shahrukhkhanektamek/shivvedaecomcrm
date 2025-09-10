@@ -6,190 +6,89 @@
         <div class="container mt-3 mt-lg-4 mt-xl-5" id="main-content">
            
 
-
+            <div class="col-12 col-md-12 col-lg-12 mb-3 mb-lg-2">
+                <div class="input-group">
+                    <span class="input-group-text bg-none"><i class="bi bi-search"></i></span>
+                    <input class="form-control pe-0 bg-none" type="search" placeholder="Customer..." id="search">
+                </div>
+            </div>
             <!-- products -->
-            <div class="row gx-3">
-                <div class="col-6 col-md-6 col-lg-4">
-                    <div class="card bg-none mb-3 mb-lg-4">
-                        <a href="ecommerce-shop-product-details.html" class="rounded coverimg height-140 mb-2 m-1">
-                            <img src="assets/img/ecommerce/image-5.jpg" alt="">
-                        </a>
-                        <div class="card-body pt-1">
-                            <a href="ecommerce-shop-product-details.html" class="style-none">
-                                <h6 class="text-theme-1 text-truncated mb-2">Bracelet Woman Platinum</h6>
-                            </a>
-                            <div class="row gx-3 align-items-center mb-2">
-                                <div class="col">
-                                    <p class="small text-secondary"><i class="bi bi-star-fill text-warning"></i> 4.8 (15 ratings)</p>
-                                </div>
-                                <div class="col-auto">
-                                    <h6 class="mb-0">$65.00 <span class="fw-normal small text-secondary">10% OFF</span></h6>
-                                </div>
-                            </div>
-
-                            <div class="row gx-3 align-items-center">
-                                <div class="col">
-                                    <button class="btn btn-square btn-link theme-pink"><i class="bi bi-heart"></i></button>
-                                </div>
-                                <div class="col-auto">
-                                    <a href="javscript:void(0)" class="btn btn-square btn-link"><i class="bi bi-cart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-6 col-lg-4">
-                    <div class="card bg-none mb-3 mb-lg-4">
-                        <a href="ecommerce-shop-product-details.html" class="rounded coverimg height-140 mb-2 m-1">
-                            <img src="assets/img/ecommerce/image-6.jpg" alt="">
-                        </a>
-                        <div class="card-body pt-1">
-                            <a href="ecommerce-shop-product-details.html" class="style-none">
-                                <h6 class="text-theme-1 text-truncated mb-2">Sofa single coco color</h6>
-                            </a>
-                            <div class="row gx-3 align-items-center mb-2">
-                                <div class="col">
-                                    <p class="small text-secondary"><i class="bi bi-star-fill text-warning"></i> 4.8 (15 ratings)</p>
-                                </div>
-                                <div class="col-auto">
-                                    <h6 class="mb-0">$65.00 <span class="fw-normal small text-secondary">10% OFF</span></h6>
-                                </div>
-                            </div>
-                            <div class="row gx-2 align-items-center">
-                                <div class="col">
-                                    <button class="btn btn-square btn-link theme-pink"><i class="bi bi-heart"></i></button>
-                                </div>
-                                <div class="col-auto">
-                                    <a href="javscript:void(0)" class="btn btn-square btn-link"><i class="bi bi-cart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-6 col-lg-4">
-                    <div class="card bg-none mb-3 mb-lg-4">
-                        <a href="ecommerce-shop-product-details.html" class="rounded coverimg height-140 mb-2 m-1">
-                            <img src="assets/img/modern-ai-image/cat-1.jpeg" alt="">
-                        </a>
-                        <div class="card-body pt-1">
-                            <a href="ecommerce-shop-product-details.html" class="style-none">
-                                <h6 class="text-theme-1 text-truncated mb-2">Green Shirt for Men</h6>
-                            </a>
-                            <div class="row gx-3 align-items-center mb-2">
-                                <div class="col">
-                                    <p class="small text-secondary"><i class="bi bi-star-fill text-warning"></i> 4.8 (15 ratings)</p>
-                                </div>
-                                <div class="col-auto">
-                                    <h6 class="mb-0">$55.00 <s class="fw-normal small text-secondary">$ 70.00</s></h6>
-                                </div>
-                            </div>
-
-                            <div class="row gx-3 align-items-center">
-                                <div class="col">
-                                    <button class="btn btn-square btn-link theme-pink"><i class="bi bi-heart"></i></button>
-                                </div>
-                                <div class="col-auto">
-                                    <a href="javscript:void(0)" class="btn btn-square btn-link"><i class="bi bi-cart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-6 col-lg-4">
-                    <div class="card bg-none mb-3 mb-lg-4">
-                        <a href="ecommerce-shop-product-details.html" class="rounded coverimg height-140 mb-2 m-1">
-                            <img src="assets/img/ecommerce/image-9.jpg" alt="">
-                        </a>
-                        <div class="card-body pt-1">
-                            <a href="ecommerce-shop-product-details.html" class="style-none">
-                                <h6 class="text-theme-1 text-truncated mb-2">High Heels blue</h6>
-                            </a>
-                            <div class="row gx-3 align-items-center mb-2">
-                                <div class="col">
-                                    <p class="small text-secondary"><i class="bi bi-star-fill text-warning"></i> 4.8 (15 ratings)</p>
-                                </div>
-                                <div class="col-auto">
-                                    <h6 class="mb-0">$65.00 <span class="fw-normal small text-secondary">10% OFF</span></h6>
-                                </div>
-                            </div>
-                            <div class="row gx-2 align-items-center">
-                                <div class="col">
-                                    <button class="btn btn-square btn-link theme-pink"><i class="bi bi-heart"></i></button>
-                                </div>
-                                <div class="col-auto">
-                                    <a href="javscript:void(0)" class="btn btn-square btn-link"><i class="bi bi-cart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-6 col-lg-4">
-                    <div class="card bg-none mb-3 mb-lg-4">
-                        <a href="ecommerce-shop-product-details.html" class="rounded coverimg height-140 mb-2 m-1">
-                            <img src="assets/img/ecommerce/image-10.jpg" alt="">
-                        </a>
-                        <div class="card-body pt-1">
-                            <a href="ecommerce-shop-product-details.html" class="style-none">
-                                <h6 class="text-theme-1 text-truncated mb-2">Black two strap sandals</h6>
-                            </a>
-                            <div class="row gx-3 align-items-center mb-2">
-                                <div class="col">
-                                    <h6>$65.00<br><span class="fw-normal small text-secondary">10% OFF</span></h6>
-                                </div>
-                                <div class="col-auto text-end">
-                                    <p class="small text-secondary"><i class="bi bi-star-fill text-warning"></i><br> 4.8</p>
-                                </div>
-                            </div>
-                            <div class="row gx-1 align-items-center">
-                                <div class="col">
-                                    <button class="btn btn-sm btn-square btn-link theme-pink"><i class="bi bi-heart"></i></button>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="row gx-0 justify-content-center increamenter border rounded">
-                                        <div class="col-auto ms-auto"><button class="btn btn-sm btn-square btn-link rounded-circle increamenter-remove">-</button></div>
-                                        <div class="col-auto"><input type="number" class="form-control form-control-sm text-center width-30 increamenter-value border-0 px-0" placeholder="" value="1"></div>
-                                        <div class="col-auto"><button class="btn btn-sm btn-square btn-link rounded-circle increamenter-add">+</button></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-6 col-lg-4">
-                    <div class="card bg-none mb-3 mb-lg-4">
-                        <a href="ecommerce-shop-product-details.html" class="rounded coverimg height-140 mb-2 m-1">
-                            <img src="assets/img/ecommerce/image-7.jpg" alt="">
-                        </a>
-                        <div class="card-body pt-1">
-                            <a href="ecommerce-shop-product-details.html" class="style-none">
-                                <h6 class="text-theme-1 text-truncated mb-2">Shine Nails Hiclon</h6>
-                            </a>
-                            <div class="row gx-3 align-items-center mb-2">
-                                <div class="col">
-                                    <h6>$65.00<br><span class="fw-normal small text-secondary">10% OFF</span></h6>
-                                </div>
-                                <div class="col-auto text-end">
-                                    <p class="small text-secondary"><i class="bi bi-star-fill text-warning"></i><br> 4.8</p>
-                                </div>
-                            </div>
-                            <div class="row gx-1 align-items-center">
-                                <div class="col">
-                                    <button class="btn btn-sm btn-square btn-link theme-pink"><i class="bi bi-heart"></i></button>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="row gx-0 justify-content-center increamenter border rounded">
-                                        <div class="col-auto ms-auto"><button class="btn btn-sm btn-square btn-link rounded-circle increamenter-remove">-</button></div>
-                                        <div class="col-auto"><input type="number" class="form-control form-control-sm text-center width-30 increamenter-value border-0 px-0" placeholder="" value="1"></div>
-                                        <div class="col-auto"><button class="btn btn-sm btn-square btn-link rounded-circle increamenter-add">+</button></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="row gx-3" id="data-list">                
             </div>
 
         
-        </div>        
+        </div>   
+
+
+
+<script>
+   var data = '';
+   var main_url = "<?php echo e(url('salesman/product')); ?>/load_data";
+
+   function get_url_data()
+   {
+       var status = $("#statuschange").val();
+       var order_by = $("#order_by").val();
+       var limit = $("#limit").val();
+       var filter_search_value = $(".search-input").val();
+       data = `status=${status}&order_by=${order_by}&limit=${limit}&filter_search_value=${filter_search_value}`;
+   }
+   url = main_url+'?'+data;
+   load_table();
+   
+   $(document).on("click", "#search",(function(e) {
+      get_url_data();
+      url =main_url+"?"+data;
+      load_table();
+   }));
+   $(document).on("click", ".pagination a",(function(e) {      
+      event.preventDefault();
+      get_url_data()
+      url = $(this).attr("href")+'&'+data;
+      load_table();
+   }));
+
+
+
+   function load_table()
+   {
+        data_loader("#data-list",1);
+        var form = new FormData();
+        var settings = {
+          "url": url,
+          "method": "GET",
+          "timeout": 0,
+          "processData": false,
+          "headers": {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+           },
+          "mimeType": "multipart/form-data",
+          "contentType": false,
+          "dataType": "json",
+          "data": form
+        };
+        $.ajax(settings).always(function (response) {
+            data_loader("#data-list",0);
+            response = admin_response_data_check(response);
+            $("#data-list").html(response.data.list);
+            if(response.status==200)
+            {
+              var data = response.data;
+              var cartDetail = data.cartDetail; 
+              var cartCount = cartDetail.cartCount;
+              if(cartCount>0) $(".checkout").show();
+              else $(".checkout").hide();
+
+              $("#totalBv").html(data.cartDetail.totalBv);
+
+            }
+
+        });
+   }
+
+
+
+</script>
+
 
  <?php echo $__env->make("salesman/include/footer", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\xamp\htdocs\projects\irshad\shivvedaecomcrm\resources\views/salesman/dashboard/index.blade.php ENDPATH**/ ?>
