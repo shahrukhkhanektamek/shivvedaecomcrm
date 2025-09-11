@@ -82,7 +82,7 @@
                                                 <input type="password" class="form-control" id="passwd" placeholder="Enter your password" name="password" required>
                                                 <label for="passwd">Password</label>
                                             </div>
-                                            <button class="btn btn-square btn-link text-theme-1 position-absolute end-0 top-0 mt-2 me-2 ">
+                                            <button type="button" class="btn btn-square btn-link text-theme-1 position-absolute end-0 top-0 mt-2 me-2 ">
                                                 <i class="bi bi-eye"></i>
                                             </button>
                                         </div>

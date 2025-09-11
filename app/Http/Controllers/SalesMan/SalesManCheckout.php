@@ -218,7 +218,7 @@ class SalesManCheckout extends Controller
 
 
         $action = 'placeOrder';
-        $responseCode = 400;
+        $responseCode = 200;
         $result['status'] = $responseCode;
         $result['message'] = 'Order Place Successfully';
         $result['url'] = route('salesman.checkout.success').'?order_id='.$order_id;

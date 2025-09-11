@@ -11,6 +11,7 @@ var approveRejectUrl = '';
 var approveId = '';
 var approveStatus = '';
 var approveRejectblock_btn = '';
+let fileFace = null;
 
 $(document).on("click", ".password_show_hide",(function(e) {
   this_btn = $(this);

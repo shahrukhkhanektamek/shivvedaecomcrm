@@ -147,15 +147,24 @@
 
   // Camera open
   function startCamera() {
-    navigator.mediaDevices.getUserMedia({ video: true })
+      navigator.mediaDevices.getUserMedia({ 
+        video: { facingMode: { exact: "environment" } } // ✅ Back Camera
+      })
       .then(stream => {
         video.srcObject = stream;
       })
       .catch(err => {
-        alert("Camera access denied: " + err);
+        console.warn("Exact environment not available, fallback to any camera.");
+        // fallback agar device back camera nahi de raha
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+          .then(stream => {
+            video.srcObject = stream;
+          })
+          .catch(err2 => {
+            alert("Camera access denied: " + err2);
+          });
       });
-  }
-
+    }
   // Face detection loop
   video.addEventListener('play', () => {
     const interval = setInterval(async () => {
@@ -171,7 +180,7 @@
     }, 500);
   });
 
-let fileFace = null;
+
 
 function takePhoto() {
   canvas.width = video.videoWidth;
@@ -251,12 +260,11 @@ function takePhoto() {
           </div>
         `;
         $("#orderData").html(data.orderView);
-
         okGo.style.display = "block";
-        
-
       } else {
         resDiv.innerHTML = `<div style="padding:10px;border-radius:8px;background:#fff7ed;border:1px solid #ffd8a8"><strong>No match found</strong></div>`;
+        $("#orderData").html(data.orderView);
+        okGo.style.display = "block";
       }
     } catch (err) {
       resDiv.innerHTML = `<pre>${err.message}</pre>`;
