@@ -9,12 +9,13 @@
                 <tr>                    
 
                     <th>Order Id</th>
-                    <th>Branch</th>
+                    <th>Sales Man</th>
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Email </th>
-                    <th>Screenshot </th>
-                    <th>Shipping Detail </th>
+                    <th>Face </th>
+                    <!-- <th>Shipping Detail </th> -->
+                    <th>Order Date </th>
                     <th>Status </th>
                     <th>Action</th>
 
@@ -29,15 +30,18 @@
                 <tr>
 
                     <td>#{{$value->order_id}}</td>
-                    <td>{{$value->branch_name}}</td>
+                    <td>
+                        <b>Name:</b> {{$value->salesman_name}}<br>
+                        <b>UserID:</b> {{$value->salesman_id}}<br>
+                    </td>
                     <td>{{$value->name}}</td>
 
                     <td>{{$value->phone}}</td>                    
 
                     <td>{{$value->email}}</td>
-                    <td><img src="{{Helpers::image_check($value->screenshot,'default.jpg')}}" class="img-responsive big-image" alt="User" style="width: 100px;height: 100px;cursor: pointer;"></td> 
+                    <td><img src="{{Helpers::image_check($value->face,'user.png')}}" class="img-responsive big-image" alt="User" style="width: 100px;height: 100px;cursor: pointer;"></td> 
 
-                    <td>
+                    <td class="hide">
                         <strong>Name: </strong>{{$value->name}}<br>
                         <strong>Email: </strong>{{$value->email}}<br>
                         <strong>Phone: </strong>{{$value->phone}}<br>
@@ -46,6 +50,7 @@
                         <strong>City: </strong>{{$value->city}}<br>
                         <strong>Pincode: </strong>{{$value->pincode}}<br>
                     </td>
+                    <td>{{$value->add_date_time}}</td>
 
                     <td>
                         @if($value->status==0)

@@ -58,12 +58,20 @@
     <img id="preview" alt="Preview" />
     <div id="overlay"></div>
   </div>
+  <button id="reloadBtn" style="display:none;margin: 10px auto;">Reload</button>
   <button id="checkBtn" style="display:none;margin: 10px auto;">Face Check</button>
   <canvas id="canvas" style="display:none;"></canvas>
   <div style="margin-top:14px">
     <strong>Result:</strong>
     <div id="result" style="margin-top:8px"></div>
   </div>
+  <div id="orderData"></div>
+
+  <div id="okGo" style="display:none;text-align: center;">
+    <a href="{{url('salesman/')}}" class="btn btn-danger" style="margin: 10px auto;">Cancel</a>
+    <button class="btn btn-success" style="margin: 10px auto;">Ok Checkout</button>    
+  </div>
+
 </div>
 
 <div class="container-fluid">
@@ -76,7 +84,7 @@
             id="form_data_submit" novalidate>
         @csrf
 
-        <input type="hidden" name="image" id="imageUpload" value="">
+        <input type="hidden" name="faceId" id="faceId" value="">
 
         <div class="form-floating mb-3">
           <input type="text" class="form-control" placeholder="Enter Name" value="" name="name" required>
@@ -127,6 +135,8 @@
   const canvas = document.getElementById('canvas');
   const preview = document.getElementById('preview');
   const checkBtn = document.getElementById('checkBtn');
+  const reloadBtn = document.getElementById('reloadBtn');
+  const okGo = document.getElementById('okGo');
   const form_data_submit = document.getElementById('form_data_submit');
   const scanArea = document.getElementById('scanArea');
 
@@ -161,33 +171,47 @@
     }, 500);
   });
 
-  let dataUrl = '';
-  function takePhoto() {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    
-    dataUrl = canvas.toDataURL("image/png");
-    preview.src = dataUrl;
+let fileFace = null;
+
+function takePhoto() {
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  
+  // ✅ Convert canvas → Blob → File
+  canvas.toBlob(function(blob) {
+    const file = new File([blob], "capture.png", { type: "image/png" });
+
+    // Preview ke liye
+    const url = URL.createObjectURL(blob);
+    preview.src = url;
     preview.style.display = "block";
     video.style.display = "none";
     checkBtn.style.display = "block";
+    reloadBtn.style.display = "block";
 
-    $("#imageUpload").val(dataUrl);
+    // Global store
+    fileFace = file;
+    window.capturedFile = file;
 
-    // Save captured image for upload
-    // checkBtn.onclick = () => {
-    //   form_data_submit.style.display = "block";
-    //   scanArea.style.display = "none";
-    //   console.log(dataUrl);
-    //   return false;
-    // };
-  }
+    // ✅ Yahan file ready hai
+    
+  }, "image/png");
+}
+
 
 
   const btn = document.getElementById('checkBtn');
   const resDiv = document.getElementById('result');
+
+  okGo.addEventListener('click', async () => {
+      form_data_submit.style.display = "block";
+      scanArea.style.display = "none";
+  });
+  reloadBtn.addEventListener('click', async () => {
+      location.reload();
+  });
 
   btn.addEventListener('click', async () => {
     resDiv.innerHTML = '<em>Checking…</em>';
@@ -195,7 +219,8 @@
     
 
     const formData = new FormData();
-    formData.append('image', dataUrl);
+    // formData.append('image', dataUrl);
+    formData.append('image', fileFace);
 
     try {
       const resp = await fetch("{{url('salesman/checkout/')}}/compare-faces", {
@@ -214,17 +239,21 @@
       }
 
       if (data.match === true) {
+
+        $("#faceId").val(data.target);
         resDiv.innerHTML = `
           <div style="padding:10px;border-radius:8px;background:#ecfdf5;border:1px solid #bbf7d0">
             <strong style="color:#065f46">Match found ✅</strong>
             <div style="margin-top:8px">
-              <div><strong>Target:</strong> ${data.target || ''}</div>
-              <div><strong>Similarity:</strong> ${data.similarity ? data.similarity.toFixed(2) : ''}</div>
+               <!-- <div><strong>Target:</strong> ${data.target || ''}</div> -->
+              <!-- <div><strong>Similarity:</strong> ${data.similarity ? data.similarity.toFixed(2) : ''}</div> -->
             </div>
           </div>
         `;
-        form_data_submit.style.display = "block";
-        scanArea.style.display = "none";
+        $("#orderData").html(data.orderView);
+
+        okGo.style.display = "block";
+        
 
       } else {
         resDiv.innerHTML = `<div style="padding:10px;border-radius:8px;background:#fff7ed;border:1px solid #ffd8a8"><strong>No match found</strong></div>`;

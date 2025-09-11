@@ -1,3 +1,121 @@
+
+
+
+<form method="post" action="http://localhost/projects/irshad/shivvedaecomcrm/upload-image" enctype="multipart/form-data">
+    <?php echo csrf_field(); ?>
+    <input type="file" name="image">
+    <button type="submit">Submit</button>
+</form>
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Check Face (S3) — Rekognition</title>
+
+  <meta name="_token" content="<?php echo e(csrf_token()); ?>">
+
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;max-width:800px;margin:40px auto;padding:20px}
+    .card{border:1px solid #e3e3e3;border-radius:8px;padding:18px;box-shadow:0 4px 14px rgba(0,0,0,0.03)}
+    label{display:block;margin:12px 0 6px;font-weight:600}
+    input[type=text], input[type=file]{width:100%;padding:10px;border:1px solid #ccc;border-radius:6px}
+    button{margin-top:12px;padding:10px 16px;border-radius:8px;border:0;background:#2563eb;color:#fff;font-weight:600;cursor:pointer}
+    pre{background:#0f172a;color:#f8fafc;padding:12px;border-radius:6px;overflow:auto}
+    .muted{color:#6b7280;font-size:14px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Face Check — S3 Bucket</h2>
+    <p class="muted">Select the source image you want to check. It will be compared with all images in your S3 bucket folder.</p>
+
+    <label for="sourceFile">Select Source Image</label>
+    <input id="sourceFile" type="file" accept="image/*" />
+
+    <button id="checkBtn">Check Face</button>
+
+    <div style="margin-top:14px">
+      <strong>Result:</strong>
+      <div id="result" style="margin-top:8px"></div>
+    </div>
+
+    <hr style="margin:18px 0">
+
+    <div class="muted">
+      <p><strong>Notes:</strong></p>
+      <ul>
+        <li>This page posts a file to <code>/api/check-face</code>. Make sure your Laravel API route exists and CSRF is configured.</li>
+        <li>Server must accept FormData with <code>image</code> key.</li>
+        <li>Server will iterate S3 bucket images and return the first match (or <code>{ "match": false }</code>).</li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script>
+    const btn = document.getElementById('checkBtn');
+    const fileInput = document.getElementById('sourceFile');
+    const resDiv = document.getElementById('result');
+
+    btn.addEventListener('click', async () => {
+      resDiv.innerHTML = '<em>Checking…</em>';
+
+      const file = fileInput.files[0];
+      if (!file) {
+        resDiv.innerHTML = '<span style="color:#b91c1c">Please select an image file.</span>';
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      try {
+        const resp = await fetch('http://localhost/projects/irshad/shivvedaecomcrm/compare-faces', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+          }
+        });
+
+        const data = await resp.json();
+
+        if (!resp.ok) {
+          resDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+          return;
+        }
+
+        if (data.match === true) {
+          resDiv.innerHTML = `
+            <div style="padding:10px;border-radius:8px;background:#ecfdf5;border:1px solid #bbf7d0">
+              <strong style="color:#065f46">Match found ✅</strong>
+              <div style="margin-top:8px">
+                <div><strong>Target:</strong> ${data.target || ''}</div>
+                <div><strong>Similarity:</strong> ${data.similarity ? data.similarity.toFixed(2) : ''}</div>
+              </div>
+            </div>
+          `;
+        } else {
+          resDiv.innerHTML = `<div style="padding:10px;border-radius:8px;background:#fff7ed;border:1px solid #ffd8a8"><strong>No match found</strong></div>`;
+        }
+      } catch (err) {
+        resDiv.innerHTML = `<pre>${err.message}</pre>`;
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+<?php die; ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

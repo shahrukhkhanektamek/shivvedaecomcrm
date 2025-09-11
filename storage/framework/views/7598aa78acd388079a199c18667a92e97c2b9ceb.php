@@ -2,19 +2,19 @@
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="light" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable" data-theme="default" data-theme-colors="default">
 <head>
     <meta charset="utf-8" />
-    <title>Dashboard | {{env("APP_NAME")}}</title>
+    <title>Dashboard | <?php echo e(env("APP_NAME")); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- App favicon -->
     <!-- Start Include Css -->
-    @include('admin.headers.maincss')
+    <?php echo $__env->make('admin.headers.maincss', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <!-- End Include Css -->
-    <script src="{{url('public/assetsadmin/')}}/libs/fullcalendar/index.global.min.js"></script>
+    <script src="<?php echo e(url('public/assetsadmin/')); ?>/libs/fullcalendar/index.global.min.js"></script>
 </head>
 <body>
     <!-- Begin page -->
     <div id="layout-wrapper">
         <!-- Start Include Header -->
-        @include('admin.headers.header')
+        <?php echo $__env->make('admin.headers.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <!-- End Include Header -->
         <div class="main-content">
             <div class="page-content">
@@ -29,12 +29,12 @@
                                             <div class="col-md-12" style="margin: 0 auto;">
                                                 <div class="row">                                            
                                                     <div class="col-md-3">
-                                                        @php($date1 = '') @if(!empty($from_date)) @php($date1 = date('Y-m-d', strtotime($from_date))) @endif
-                                                        @php($date2 = '') @if(!empty($to_date)) @php($date2 = date('Y-m-d', strtotime($to_date))) @endif
-                                                        <input type="date" class="form-control" name="from_date" value="{{$date1}}">
+                                                        <?php ($date1 = ''); ?> <?php if(!empty($from_date)): ?> <?php ($date1 = date('Y-m-d', strtotime($from_date))); ?> <?php endif; ?>
+                                                        <?php ($date2 = ''); ?> <?php if(!empty($to_date)): ?> <?php ($date2 = date('Y-m-d', strtotime($to_date))); ?> <?php endif; ?>
+                                                        <input type="date" class="form-control" name="from_date" value="<?php echo e($date1); ?>">
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <input type="date" class="form-control" name="to_date" value="{{$date2}}">
+                                                        <input type="date" class="form-control" name="to_date" value="<?php echo e($date2); ?>">
                                                     </div>
                                                     <div class="col-md-3">
                                                         <button type="submit" class="btn btn-primary">Search</button>
@@ -59,7 +59,7 @@
                                                 </div>
                                                 <div class="d-flex align-items-end justify-content-between mt-4">
                                                     <div>
-                                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4">{{\App\Helper\Helpers::currency_simble()}} <span class="counter-value" data-target="{{$all_time_income}}" id="all_time_income">0</span> </h4>
+                                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4"><?php echo e(\App\Helper\Helpers::currency_simble()); ?> <span class="counter-value" data-target="<?php echo e($all_time_income); ?>" id="all_time_income">0</span> </h4>
                                                     </div>
                                                     <div class="avatar-sm flex-shrink-0">
                                                         <span class="avatar-title bg-success-subtle rounded fs-3">
@@ -82,7 +82,7 @@
                                                 </div>
                                                 <div class="d-flex align-items-end justify-content-between mt-4">
                                                     <div>
-                                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4">{{\App\Helper\Helpers::currency_simble()}} <span class="counter-value" data-target="{{$all_time_income}}" id="all_time_income">0</span> </h4>
+                                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4"><?php echo e(\App\Helper\Helpers::currency_simble()); ?> <span class="counter-value" data-target="<?php echo e($all_time_income); ?>" id="all_time_income">0</span> </h4>
                                                     </div>
                                                     <div class="avatar-sm flex-shrink-0">
                                                         <span class="avatar-title bg-success-subtle rounded fs-3">
@@ -132,14 +132,14 @@
             </div>
             <!-- End Page-content -->
         <!-- Start Include Footer -->
-        @include('admin.headers.footer')
+        <?php echo $__env->make('admin.headers.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <!-- End Include Footer -->
         </div>
         <!-- end main content-->
     </div>
     <!-- END layout-wrapper -->
     <!-- Start Include Script -->
-    @include('admin.headers.mainjs')
+    <?php echo $__env->make('admin.headers.mainjs', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     <!-- End Include Script -->
 
     <script>
@@ -158,7 +158,7 @@
                     var start = fetchInfo.startStr;
                     var end = fetchInfo.endStr;
 
-                    fetch("{{route('admin_earning_calendar')}}"+'?start=' + start + '&end=' + end )
+                    fetch("<?php echo e(route('admin_earning_calendar')); ?>"+'?start=' + start + '&end=' + end )
                         .then(response => response.json())
                         .then(data => {
                             successCallback(data.events); // Pass the event data to FullCalendar
@@ -179,4 +179,4 @@
     </script>
 
 </body>
-</html>
+</html><?php /**PATH C:\xamp\htdocs\projects\irshad\shivvedaecomcrm\resources\views/admin/dashboard/index.blade.php ENDPATH**/ ?>

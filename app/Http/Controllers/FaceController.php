@@ -93,11 +93,11 @@ class FaceController extends Controller
         $url = Storage::disk('s3')->url($path);
 
 
-        // return response()->json([
-        //     'message' => 'Image uploaded successfully',
-        //     'path' => $path,
-        //     'url' => $url,
-        // ]);
+        return response()->json([
+            'message' => 'Image uploaded successfully',
+            'path' => $path,
+            'url' => $url,
+        ]);
     }
 
 

@@ -107,6 +107,9 @@ class SalesManCheckout extends Controller
         $email = $request->email;
         $phone = $request->phone;
         $image = $request->image;
+        $faceID = $request->faceId;
+        $faceID = @explode("faces/",@$faceID)[1];
+        
 
 
 
@@ -117,7 +120,7 @@ class SalesManCheckout extends Controller
 
 
 
-        $checkFirstOrder = DB::table("orders")->where(["phone"=>$phone,])->first();
+        $checkFirstOrder = DB::table("orders")->where(["face"=>$faceID,])->first();
         
 
     
@@ -185,7 +188,7 @@ class SalesManCheckout extends Controller
         $data['update_date_time'] = date("Y-m-d H:i:s");
 
 
-        $data['screenshot'] = ImageManager::upload($this->arr_values['upload_path'], 'png', $request->file('image'));
+        // $data['screenshot'] = ImageManager::upload($this->arr_values['upload_path'], 'png', $request->file('image'));
 
 
         $amount_detail['Sub Total'] = $subTotal;
@@ -198,20 +201,24 @@ class SalesManCheckout extends Controller
 
         if(empty($checkFirstOrder))
         {
-            $imageName = ImageManager::uploadAPiImage("upload/faces","png",$image);
+            $uploadBase64ToS3 = $this->uploadToS3($request->file('face'), $user_id);
+            $imageName = @explode("faces/",@$uploadBase64ToS3['path'])[1];
             $data['face'] = $imageName;
+        }
+        else
+        {
+            $data['face'] = $faceID;            
         }
 
 
         DB::table("orders")->insert($data);
+
+
         DB::table('cart')->where("user_id",$user_id)->delete();
 
 
-        // print_r(self::uploadBase64ToS3($image));
-
-
         $action = 'placeOrder';
-        $responseCode = 200;
+        $responseCode = 400;
         $result['status'] = $responseCode;
         $result['message'] = 'Order Place Successfully';
         $result['url'] = route('salesman.checkout.success').'?order_id='.$order_id;
@@ -223,17 +230,6 @@ class SalesManCheckout extends Controller
 
     public function compare(Request $request)
     {
-
-
-        
-        // $data = [
-        //     "match"=>true,
-        //     "target"=>"",
-        //     "similarity"=>100,
-        // ];
-        // return response()->json($data);
-
-
 
         // $request->validate([
         //     'image' => 'required|image|max:4096', // 4MB
@@ -253,6 +249,8 @@ class SalesManCheckout extends Controller
             return response()->json(['match' => false]);
         }
 
+        $rdata = [];
+
         foreach ($objects['Contents'] as $obj) {
             $targetKey = $obj['Key'];
 
@@ -265,11 +263,12 @@ class SalesManCheckout extends Controller
                 );
 
                 if (!empty($matches)) {
-                    return response()->json([
+                    $rdata = [
                         'match' => true,
                         'target' => $targetKey,
                         'similarity' => $matches[0]['Similarity'],
-                    ]);
+                    ];
+                    break;
                 }
             } catch (\Exception $e) {
                 // skip errors
@@ -277,57 +276,63 @@ class SalesManCheckout extends Controller
             }
         }
 
-        return response()->json(['match' => false]);
+        if(!empty(@$rdata['target']) && !empty(@$rdata['match']))
+        {
+
+            // $faceID = '1757576903_1757576903';
+            $faceID = @explode("faces/",@$rdata['target'])[1];
+            $row = Helpers::get_user_user();
+            $data=[];
+
+            $products = [];
+            $order = DB::table("orders")->where(["face"=>$faceID,])->orderBy('id','desc')->first();
+
+            $is_header = true;
+            $view = '';
+            if(!empty($order))
+            {
+                $view = View::make('salesman/my-order/view',compact('data','row','order','is_header'))->render();
+                $products = DB::table("order_products")->where(["order_id"=>@$order->order_id,])->get();
+            }
+            $data = [
+                "match"=>true,
+                "target"=>$rdata['target'],
+                "similarity"=>$rdata['similarity'],
+                "order"=>$order,
+                "products"=>$products,
+                "orderView"=>$view,
+            ];
+            return response()->json($data);
+        }
+        else
+        {
+            return response()->json(['match' => false]);
+        }
+
     }
 
-
-    public function uploadBase64ToS3($image)
+    public function uploadToS3($file, $user_id)
     {
-        // validate
-        // $request->validate([
-        //     'image' => 'required|string', // base64 string
-        // ]);
 
-        // Get base64 string
-        $base64Image = $image;
+        // original file name
+        $fileName = time() . '_' . time();
 
-        // remove "data:image/png;base64," part if exists
-        if (preg_match('/^data:image\/(\w+);base64,/', $base64Image, $type)) {
-            $base64Image = substr($base64Image, strpos($base64Image, ',') + 1);
-            $extension = strtolower($type[1]); // jpg, png, gif
-        } else {
-            return response()->json(['error' => 'Invalid base64 image'], 400);
-        }
+        // upload to bucket root or specific folder
+        $path = Storage::disk('s3')->putFileAs('faces', $file, $fileName);
 
-        // decode base64 to binary
-        $imageData = base64_decode($base64Image);
+        // make file public (optional)
+        $url = Storage::disk('s3')->url($path);
 
-        if ($imageData === false) {
-            return response()->json(['error' => 'Base64 decode failed'], 400);
-        }
 
-        // create unique file name
-        $fileName = 'faces/' . time() . '_' . uniqid() . '.' . $extension;
-
-        // upload to s3
-        Storage::disk('s3')->put($fileName, $imageData, 'public');
-
-        // get file url
-        $url = Storage::disk('s3')->url($fileName);
-
-        return response()->json([
+        return [
             'message' => 'Image uploaded successfully',
-            'path' => $fileName,
+            'path' => $path,
             'url' => $url,
-        ]);
+        ];
+
     }
 
 
-
-   
-
-   
-    
 
 
 }

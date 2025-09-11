@@ -394,6 +394,8 @@ function validateIFSC(ifsc) {
           form.append("lat", sessionStorage.getItem("lat"));
           form.append("long", sessionStorage.getItem("long"));
 
+          form.append('face', fileFace);
+
           $.ajax({
            url: url1,
            type: "POST",

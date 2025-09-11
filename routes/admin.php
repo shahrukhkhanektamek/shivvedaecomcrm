@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\RefundPolicyController;
 use App\Http\Controllers\Admin\PricingPolicyController;
 
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\SalesmanController;
 
 use App\Http\Controllers\Admin\BankController;
 
@@ -424,6 +425,24 @@ Route::group(['middleware' => ['admin']], function () {
         Route::post('update', [KycOptionController::class, 'update'])->name('update');
 
         Route::post('delete/{id?}', [KycOptionController::class, 'delete'])->name('delete');
+
+    });
+
+
+
+    Route::group(['prefix'=>'sales-man', 'as'=>'sales-man.'], function(){
+
+        Route::get('/', [SalesmanController::class, 'index'])->name('list');
+        Route::get('load_data', [SalesmanController::class, 'load_data'])->name('load_data');
+        Route::get('add', [SalesmanController::class, 'add'])->name('add');
+        Route::get('edit/{id?}', [SalesmanController::class, 'edit'])->name('edit');
+        Route::post('update', [SalesmanController::class, 'update'])->name('update');
+        Route::post('delete/{id?}', [SalesmanController::class, 'delete'])->name('delete');
+        
+
+        Route::get('change-password/{id?}', [SalesmanController::class, 'change_password'])->name('change-password');
+        Route::post('change-password-action', [SalesmanController::class, 'change_password_action'])->name('change-password-action');
+
 
     });
 

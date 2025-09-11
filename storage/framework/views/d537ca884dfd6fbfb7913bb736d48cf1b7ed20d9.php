@@ -1,24 +1,24 @@
-@php($get_user_user = Helpers::get_user())
+<?php ($get_user_user = Helpers::get_user()); ?>
    <header id="page-topbar">
     <div class="layout-width">
         <div class="navbar-header">
             <div class="d-flex">
                 <!-- LOGO -->
                 <div class="navbar-brand-box horizontal-logo">
-                    <a href="{{url('/')}}" class="logo logo-dark">
+                    <a href="<?php echo e(url('/')); ?>" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="{{url('public')}}/assetsadmin/images/logo.png" alt="" >
+                            <img src="<?php echo e(url('public')); ?>/assetsadmin/images/logo.png" alt="" >
                         </span>
                         <span class="logo-lg">
-                            <img src="{{url('public')}}/assetsadmin/images/logo.png" alt="" >
+                            <img src="<?php echo e(url('public')); ?>/assetsadmin/images/logo.png" alt="" >
                         </span>
                     </a>
-                    <a href="{{url('/')}}" class="logo logo-light">
+                    <a href="<?php echo e(url('/')); ?>" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="{{url('public')}}/assetsadmin/images/logo.png" alt="">
+                            <img src="<?php echo e(url('public')); ?>/assetsadmin/images/logo.png" alt="">
                         </span>
                         <span class="logo-lg">
-                            <img src="{{url('public')}}/assetsadmin/images/logo.png" alt="" >
+                            <img src="<?php echo e(url('public')); ?>/assetsadmin/images/logo.png" alt="" >
                         </span>
                     </a>
                 </div>
@@ -59,25 +59,25 @@
                 <div class="dropdown ms-sm-3 header-item topbar-user">
                     <button type="button" class="btn material-shadow-none" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="{{Helpers::image_check($get_user_user->image,'user.png')}}" alt="Header Avatar">
+                            <img class="rounded-circle header-profile-user" src="<?php echo e(Helpers::image_check($get_user_user->image,'user.png')); ?>" alt="Header Avatar">
                             <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{Helpers::get_user()->name}}</span>
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text"><?php echo e(Helpers::get_user()->name); ?></span>
                                 <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">
-                                    @if(Helpers::get_user()->role==1)
+                                    <?php if(Helpers::get_user()->role==1): ?>
                                     Founder
-                                    @endif
-                                    @if(Helpers::get_user()->role==3)
+                                    <?php endif; ?>
+                                    <?php if(Helpers::get_user()->role==3): ?>
                                     Sub Admin
-                                    @endif
+                                    <?php endif; ?>
                                 </span>
                             </span>
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <h6 class="dropdown-header">Welcome {{Helpers::get_user()->name}}!</h6>
+                        <h6 class="dropdown-header">Welcome <?php echo e(Helpers::get_user()->name); ?>!</h6>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{route('admin-change-password.index')}}"><i class="mdi mdi-eye text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Change Password </span></a>
+                        <a class="dropdown-item" href="<?php echo e(route('admin-change-password.index')); ?>"><i class="mdi mdi-eye text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Change Password </span></a>
                         <a class="dropdown-item logout" ><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
                     </div>
                 </div>
@@ -115,21 +115,21 @@
             <!-- LOGO -->
             <div class="navbar-brand-box">
                 <!-- Dark Logo-->
-                <a href="{{url('/')}}" class="logo logo-dark">
+                <a href="<?php echo e(url('/')); ?>" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="{{url('public')}}/assetsadmin/images/logo.png" alt="" >
+                        <img src="<?php echo e(url('public')); ?>/assetsadmin/images/logo.png" alt="" >
                     </span>
                     <span class="logo-lg">
-                        <img src="{{url('public')}}/assetsadmin/images/logo.png" alt="" >
+                        <img src="<?php echo e(url('public')); ?>/assetsadmin/images/logo.png" alt="" >
                     </span>
                 </a>
                 <!-- Light Logo-->
-                <a href="{{url('/')}}" class="logo logo-light">
+                <a href="<?php echo e(url('/')); ?>" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{url('public')}}/assetsadmin/images/logo.png" alt="" >
+                        <img src="<?php echo e(url('public')); ?>/assetsadmin/images/logo.png" alt="" >
                     </span>
                     <span class="logo-lg">
-                        <img src="{{url('public')}}/assetsadmin/images/logo.png" alt="">
+                        <img src="<?php echo e(url('public')); ?>/assetsadmin/images/logo.png" alt="">
                     </span>
                 </a>
                 <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
@@ -139,7 +139,7 @@
             <div class="dropdown sidebar-user m-1 rounded">
                 <button type="button" class="btn material-shadow-none" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="d-flex align-items-center gap-2">
-                        <img class="rounded header-profile-user" src="{{url('public')}}/assetsadmin/images/users/avatar-1.jpg" alt="Header Avatar">
+                        <img class="rounded header-profile-user" src="<?php echo e(url('public')); ?>/assetsadmin/images/users/avatar-1.jpg" alt="Header Avatar">
                         <span class="text-start">
                             <span class="d-block fw-medium sidebar-user-name-text">Anna Adame</span>
                             <span class="d-block fs-14 sidebar-user-name-sub-text"><i class="ri ri-circle-fill fs-10 text-success align-baseline"></i> <span class="align-middle">Online</span></span>
@@ -167,7 +167,7 @@
                     <ul class="navbar-nav" id="navbar-nav">
                         <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{{route('dashboard')}}">
+                            <a class="nav-link menu-link" href="<?php echo e(route('dashboard')); ?>">
                                 <i class="ri-dashboard-line"></i> <span data-key="t-dashboards">Dashboard</span>
                             </a>
                         </li>
@@ -176,14 +176,14 @@
                         
 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{{route('product.list')}}">
+                            <a class="nav-link menu-link" href="<?php echo e(route('product.list')); ?>">
                                 <i class="ri-product-hunt-line"></i> <span data-key="t-dashboards">Products</span>
                             </a>
                         </li>
 
 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{{route('order.list')}}">
+                            <a class="nav-link menu-link" href="<?php echo e(route('order.list')); ?>">
                                 <i class="ri-shopping-basket-2-line"></i> <span data-key="t-dashboards">Orders</span>
                             </a>
                         </li>
@@ -191,13 +191,13 @@
                        
                        
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{{route('invoice.list')}}">
+                            <a class="nav-link menu-link" href="<?php echo e(route('invoice.list')); ?>">
                                 <i class="ri-pages-line"></i> <span data-key="t-dashboards">Invoice</span>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link menu-link" href="{{route('sales-man.list')}}">
+                            <a class="nav-link menu-link" href="<?php echo e(route('sales-man.list')); ?>">
                                 <i class="ri-user-line"></i> <span data-key="t-dashboards">Sales Man</span>
                             </a>
                         </li> 
@@ -213,12 +213,12 @@
                             <div class="collapse menu-dropdown" id="sidebarWebsite">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a class="nav-link menu-link" href="{{route('setting.main')}}">
+                                        <a class="nav-link menu-link" href="<?php echo e(route('setting.main')); ?>">
                                             <i class=" ri-file-copy-line"></i> <span data-key="t-dashboards">Main</span>
                                         </a>
                                     </li> 
                                     <li class="nav-item">
-                                        <a class="nav-link menu-link" href="{{route('blog.list')}}">
+                                        <a class="nav-link menu-link" href="<?php echo e(route('blog.list')); ?>">
                                             <i class=" ri-file-copy-line"></i> <span data-key="t-dashboards">Blog</span>
                                         </a>
                                     </li> 
@@ -232,7 +232,7 @@
                                         <div class="collapse menu-dropdown" id="sidebarHomePage">
                                             <ul class="nav nav-sm flex-column">
                                                 <li class="nav-item">
-                                                    <a class="nav-link menu-link" href="{{route('home-banner.list')}}">
+                                                    <a class="nav-link menu-link" href="<?php echo e(route('home-banner.list')); ?>">
                                                         <i class="ri-picture-in-picture-line"></i> <span data-key="t-dashboards">Banner</span>
                                                     </a>
                                                 </li>                                                
@@ -243,22 +243,22 @@
 
 
                                     <!-- <li class="nav-item">
-                                        <a class="nav-link menu-link" href="{{route('privacy-policy.index')}}">
+                                        <a class="nav-link menu-link" href="<?php echo e(route('privacy-policy.index')); ?>">
                                             <i class=" ri-file-copy-line"></i> <span data-key="t-dashboards">Privacy Policy</span>
                                         </a>
                                     </li> 
                                     <li class="nav-item">
-                                        <a class="nav-link menu-link" href="{{route('term-condition.index')}}">
+                                        <a class="nav-link menu-link" href="<?php echo e(route('term-condition.index')); ?>">
                                             <i class=" ri-file-copy-line"></i> <span data-key="t-dashboards">Terms & Condition</span>
                                         </a>
                                     </li> 
                                     <li class="nav-item">
-                                        <a class="nav-link menu-link" href="{{route('refund-policy.index')}}">
+                                        <a class="nav-link menu-link" href="<?php echo e(route('refund-policy.index')); ?>">
                                             <i class="ri-refund-line"></i> <span data-key="t-dashboards">Refund Policy</span>
                                         </a>
                                     </li> 
                                     <li class="nav-item">
-                                        <a class="nav-link menu-link" href="{{route('pricing-policy.index')}}">
+                                        <a class="nav-link menu-link" href="<?php echo e(route('pricing-policy.index')); ?>">
                                             <i class=" ri-money-cny-box-line"></i> <span data-key="t-dashboards">Pricing Policy</span>
                                         </a>
                                     </li>  -->
@@ -280,31 +280,31 @@
                                 <ul class="nav nav-sm flex-column">
                                     
                                     <!-- <li class="nav-item">
-                                        <a class="nav-link menu-link" href="{{route('payment-setting.list')}}">
+                                        <a class="nav-link menu-link" href="<?php echo e(route('payment-setting.list')); ?>">
                                             <i class=" ri-file-copy-line"></i> <span data-key="t-dashboards">Payment</span>
                                         </a>
                                     </li> -->
 
                                     <li class="nav-item">
-                                        <a class="nav-link menu-link" href="{{route('setting.emails')}}">
+                                        <a class="nav-link menu-link" href="<?php echo e(route('setting.emails')); ?>">
                                             <i class=" ri-file-copy-line"></i> <span data-key="t-dashboards">Emails</span>
                                         </a>
                                     </li>
                                     
                                     <li class="nav-item">
-                                        <a class="nav-link menu-link" href="{{route('setting.payoutpin')}}">
+                                        <a class="nav-link menu-link" href="<?php echo e(route('setting.payoutpin')); ?>">
                                             <i class=" ri-file-copy-line"></i> <span data-key="t-dashboards">Payout Pin</span>
                                         </a>
                                     </li>
                                     
                                     <li class="nav-item">
-                                        <a class="nav-link menu-link" href="{{route('setting.plan')}}">
+                                        <a class="nav-link menu-link" href="<?php echo e(route('setting.plan')); ?>">
                                             <i class=" ri-file-copy-line"></i> <span data-key="t-dashboards">Plan Set</span>
                                         </a>
                                     </li>
                                     
                                     <!-- <li class="nav-item">
-                                        <a class="nav-link menu-link" href="{{route('setting.gst')}}">
+                                        <a class="nav-link menu-link" href="<?php echo e(route('setting.gst')); ?>">
                                             <i class=" ri-file-copy-line"></i> <span data-key="t-dashboards">GST</span>
                                         </a>
                                     </li> -->
@@ -318,4 +318,4 @@
             </div>
             <div class="sidebar-background"></div>
         </div>
-        <!-- Left Sidebar End -->
+        <!-- Left Sidebar End --><?php /**PATH C:\xamp\htdocs\projects\irshad\shivvedaecomcrm\resources\views/admin/headers/header.blade.php ENDPATH**/ ?>

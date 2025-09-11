@@ -1,4 +1,7 @@
+@if(empty($is_header))
 @include("salesman/include/header")
+@endif
+
 @php($orderProducts = DB::table("order_products")->where("order_id",$order->order_id)->get())
 
 @php($gst = 12)
@@ -124,5 +127,6 @@
 
 
 
-
+@if(empty($is_header))
 @include("salesman/include/footer")
+@endif

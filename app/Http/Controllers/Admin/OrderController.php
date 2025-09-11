@@ -89,8 +89,11 @@ class OrderController extends Controller
 
 
       $data_list = Orders::whereIn($this->arr_values['table_name'].'.status', $status)
-      ->leftJoin("branch","branch.id","=",$this->arr_values['table_name'].".branch")
-      ->select($this->arr_values['table_name'].".*","branch.name as branch_name");
+      ->leftJoin("users as sales_man","sales_man.id","=",$this->arr_values['table_name'].".user_id")
+      ->select($this->arr_values['table_name'].".*",
+        "sales_man.name as salesman_name",
+        "sales_man.user_id as salesman_id",
+        );
       
       if(!empty($filter_search_value))
       {
@@ -98,7 +101,8 @@ class OrderController extends Controller
         foreach ($filter_search_value as $key => $value)
         {
             $data_list = $data_list->where($this->arr_values['table_name'].'.name','LIKE',"%{$value}%");            
-            $data_list = $data_list->whereOr($this->arr_values['table_name'].'.order_id','LIKE',"%{$value}%");            
+            $data_list = $data_list->orWhere($this->arr_values['table_name'].'.order_id','LIKE',"%{$value}%");            
+            $data_list = $data_list->orWhere($this->arr_values['table_name'].'.phone','LIKE',"%{$value}%");            
         }
       }
 

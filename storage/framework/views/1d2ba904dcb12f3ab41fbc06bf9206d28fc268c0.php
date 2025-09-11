@@ -1,4 +1,7 @@
+<?php if(empty($is_header)): ?>
 <?php echo $__env->make("salesman/include/header", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php endif; ?>
+
 <?php ($orderProducts = DB::table("order_products")->where("order_id",$order->order_id)->get()); ?>
 
 <?php ($gst = 12); ?>
@@ -124,5 +127,6 @@
 
 
 
-
-<?php echo $__env->make("salesman/include/footer", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xamp\htdocs\projects\irshad\shivvedaecomcrm\resources\views/salesman/my-order/view.blade.php ENDPATH**/ ?>
+<?php if(empty($is_header)): ?>
+<?php echo $__env->make("salesman/include/footer", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php endif; ?><?php /**PATH C:\xamp\htdocs\projects\irshad\shivvedaecomcrm\resources\views/salesman/my-order/view.blade.php ENDPATH**/ ?>

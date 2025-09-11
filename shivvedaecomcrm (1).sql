@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 10, 2025 at 10:35 PM
+-- Generation Time: Sep 11, 2025 at 10:24 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -107,6 +107,13 @@ CREATE TABLE `cart` (
   `slug` text DEFAULT NULL,
   `is_delete` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `product_id`, `product_name`, `user_id`, `qty`, `price`, `add_date_time`, `status`, `add_by`, `update_date_time`, `update_history`, `slug`, `is_delete`) VALUES
+(51, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, '2025-09-11 12:21:39', 1, 4, '2025-09-11 12:21:39', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -4366,7 +4373,9 @@ INSERT INTO `login_history` (`id`, `user_id`, `role`, `ip_address`, `date`, `tim
 (1341, '4', 3, '192.168.1.32', '2025-09-09', '11:59:42', '', NULL, '', NULL, 1, 'e10adc3949ba59abbe56e057f20f883e'),
 (1342, '4', 3, '::1', '2025-09-09', '14:11:21', '', NULL, '', NULL, 1, 'e10adc3949ba59abbe56e057f20f883e'),
 (1343, '6', 1, '::1', '2025-09-11', '00:29:32', '', NULL, '', NULL, 1, 'e10adc3949ba59abbe56e057f20f883e'),
-(1344, '4', 3, '::1', '2025-09-11', '00:30:09', '', NULL, '', NULL, 1, 'e10adc3949ba59abbe56e057f20f883e');
+(1344, '4', 3, '::1', '2025-09-11', '00:30:09', '', NULL, '', NULL, 1, 'e10adc3949ba59abbe56e057f20f883e'),
+(1345, '6', 1, '::1', '2025-09-11', '11:18:26', '', NULL, '', NULL, 1, 'e10adc3949ba59abbe56e057f20f883e'),
+(1346, '4', 3, '::1', '2025-09-11', '12:07:27', '', NULL, '', NULL, 1, 'e10adc3949ba59abbe56e057f20f883e');
 
 -- --------------------------------------------------------
 
@@ -4865,13 +4874,6 @@ CREATE TABLE `orders` (
   `is_delete` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `branch`, `order_id`, `transaction_id`, `user_id`, `name`, `email`, `phone`, `state`, `city`, `pincode`, `address`, `amount`, `gst`, `final_amount`, `bv`, `wallet_use`, `wallet_amount`, `amount_detail`, `face`, `screenshot`, `add_date_time`, `payment_date_time`, `delivered_date_time`, `process_date_time`, `payment_by`, `status`, `add_by`, `update_date_time`, `update_history`, `slug`, `is_delete`) VALUES
-(1, NULL, 17575363784, NULL, 4, 'Master Pro', 'sharukhkhanektamek1998@gmail.com', '8285392948', '3', 'Delhi', '110086', NULL, 615.12, 83.88, 699, 500, NULL, 0, '{\"Sub Total\":615.12,\"GST\":83.88,\"Total Amount\":699,\"Wallet Amount\":0,\"Payable Amount\":615.12}', '2025-09-11-68c1e07a30fb2.png', 'default.jpg', '2025-09-11 02:02:58', '2025-09-11 02:02:58', NULL, NULL, 'COD', 0, 4, '2025-09-11 02:02:58', NULL, NULL, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -4918,7 +4920,42 @@ INSERT INTO `order_products` (`id`, `order_id`, `product_id`, `name`, `user_id`,
 (15, 17575362064, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 02:00:06', 0, 4, '2025-09-11 02:00:06', NULL, NULL, 0),
 (16, 17575362204, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 02:00:20', 0, 4, '2025-09-11 02:00:20', NULL, NULL, 0),
 (17, 17575362494, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 02:00:49', 0, 4, '2025-09-11 02:00:49', NULL, NULL, 0),
-(18, 17575363784, 193192, 'CHAYWANPRASH', 4, 1, 699, 500, '2025-09-11 02:02:58', 0, 4, '2025-09-11 02:02:58', NULL, NULL, 0);
+(18, 17575363784, 193192, 'CHAYWANPRASH', 4, 1, 699, 500, '2025-09-11 02:02:58', 0, 4, '2025-09-11 02:02:58', NULL, NULL, 0),
+(19, 17575732794, 193202, 'SEA BUCKTHORN JUICE', 4, 1, 1999, 1700, '2025-09-11 12:17:59', 0, 4, '2025-09-11 12:17:59', NULL, NULL, 0),
+(20, 17575735384, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:22:18', 0, 4, '2025-09-11 12:22:18', NULL, NULL, 0),
+(21, 17575738534, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:27:33', 0, 4, '2025-09-11 12:27:33', NULL, NULL, 0),
+(22, 17575738624, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:27:42', 0, 4, '2025-09-11 12:27:42', NULL, NULL, 0),
+(23, 17575738724, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:27:52', 0, 4, '2025-09-11 12:27:52', NULL, NULL, 0),
+(24, 17575740044, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:30:04', 0, 4, '2025-09-11 12:30:04', NULL, NULL, 0),
+(25, 17575740544, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:30:54', 0, 4, '2025-09-11 12:30:54', NULL, NULL, 0),
+(26, 17575744914, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:38:11', 0, 4, '2025-09-11 12:38:11', NULL, NULL, 0),
+(27, 17575745484, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:39:08', 0, 4, '2025-09-11 12:39:08', NULL, NULL, 0),
+(28, 17575745994, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:39:59', 0, 4, '2025-09-11 12:39:59', NULL, NULL, 0),
+(29, 17575746264, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:40:26', 0, 4, '2025-09-11 12:40:26', NULL, NULL, 0),
+(30, 17575747864, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:43:06', 0, 4, '2025-09-11 12:43:06', NULL, NULL, 0),
+(31, 17575748214, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:43:41', 0, 4, '2025-09-11 12:43:41', NULL, NULL, 0),
+(32, 17575748904, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:44:50', 0, 4, '2025-09-11 12:44:50', NULL, NULL, 0),
+(33, 17575750254, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:47:05', 0, 4, '2025-09-11 12:47:05', NULL, NULL, 0),
+(34, 17575750644, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:47:44', 0, 4, '2025-09-11 12:47:44', NULL, NULL, 0),
+(35, 17575753534, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:52:33', 0, 4, '2025-09-11 12:52:33', NULL, NULL, 0),
+(36, 17575754264, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:53:46', 0, 4, '2025-09-11 12:53:46', NULL, NULL, 0),
+(37, 17575754324, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:53:52', 0, 4, '2025-09-11 12:53:52', NULL, NULL, 0),
+(38, 17575754374, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:53:57', 0, 4, '2025-09-11 12:53:57', NULL, NULL, 0),
+(39, 17575757574, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:59:17', 0, 4, '2025-09-11 12:59:17', NULL, NULL, 0),
+(40, 17575757734, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:59:33', 0, 4, '2025-09-11 12:59:33', NULL, NULL, 0),
+(41, 17575757814, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 12:59:41', 0, 4, '2025-09-11 12:59:41', NULL, NULL, 0),
+(42, 17575758714, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 13:01:11', 0, 4, '2025-09-11 13:01:11', NULL, NULL, 0),
+(43, 17575760324, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 13:03:52', 0, 4, '2025-09-11 13:03:52', NULL, NULL, 0),
+(44, 17575761444, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 13:05:44', 0, 4, '2025-09-11 13:05:44', NULL, NULL, 0),
+(45, 17575761534, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 13:05:53', 0, 4, '2025-09-11 13:05:53', NULL, NULL, 0),
+(46, 17575762214, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 13:07:01', 0, 4, '2025-09-11 13:07:01', NULL, NULL, 0),
+(47, 17575762384, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 13:07:18', 0, 4, '2025-09-11 13:07:18', NULL, NULL, 0),
+(48, 17575762624, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 13:07:42', 0, 4, '2025-09-11 13:07:42', NULL, NULL, 0),
+(49, 17575762744, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 13:07:54', 0, 4, '2025-09-11 13:07:54', NULL, NULL, 0),
+(50, 17575767674, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 13:16:07', 0, 4, '2025-09-11 13:16:07', NULL, NULL, 0),
+(51, 17575768034, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 13:16:43', 0, 4, '2025-09-11 13:16:43', NULL, NULL, 0),
+(52, 17575769034, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 13:18:23', 0, 4, '2025-09-11 13:18:23', NULL, NULL, 0),
+(53, 17575769854, 193203, 'LIVER DETOX TABLETS', 4, 1, 999, 800, '2025-09-11 13:19:45', 0, 4, '2025-09-11 13:19:45', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -5843,9 +5880,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `user_id`, `sponser_id`, `parent_id`, `position`, `total_team`, `total_direct`, `total_pairs`, `total_bvs`, `total_left_pair`, `total_right_pair`, `total_left_unpaid`, `total_right_unpaid`, `total_left_paid`, `total_right_paid`, `rank`, `pending_pairs`, `pending_bvs`, `total_bv`, `left_bv`, `right_bv`, `total_rbv`, `name`, `lname`, `email`, `phone`, `password`, `remember_token`, `add_date_time`, `activate_date_time`, `mail_date_time`, `status`, `role`, `gender`, `is_paid`, `kyc_step`, `kyc_message`, `placement`, `image`, `address`, `country`, `state`, `city`, `package`, `package_name`, `sponser_name`, `pan`, `bank_holder_name`, `bank_name`, `account_number`, `ifsc`, `rg_mobile`, `add_by`, `update_date_time`, `update_history`, `slug`, `is_delete`) VALUES
-(4, 998, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Shahrukh Khan', NULL, 'test@gmail.com', '1122334455', 'e10adc3949ba59abbe56e057f20f883e', '', '2020-08-30 15:56:58', '2025-03-05 15:56:04', '2025-03-05 15:56:04', 1, 3, 1, 1, 1, NULL, NULL, '2025-07-22-687fafcd1352b.jpg', 'Demo Address', 99, '25', 'Delhi', '193132', 'Tech Wave', 'Shahrukh', 'dfgsg', 'mohammad jakir khan', 'HDFC Bank', '50100818682261', 'HDFC0007225', '8285392948', 5, '2025-07-22 21:05:41', NULL, NULL, 0),
+(4, 998, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Shahrukh', NULL, 'test@gmail.com', '112233445543', 'e10adc3949ba59abbe56e057f20f883e', '', '2020-08-30 15:56:58', '2025-03-05 15:56:04', '2025-03-05 15:56:04', 1, 3, 1, 1, 1, NULL, NULL, '2025-07-22-687fafcd1352b.jpg', NULL, NULL, NULL, NULL, '193132', 'Tech Wave', 'Shahrukh', 'dfgsg', 'mohammad jakir khan', 'HDFC Bank', '50100818682261', 'HDFC0007225', '8285392948', 6, '2025-09-11 11:51:14', NULL, NULL, 0),
 (5, 999, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'ckxezf hyqflu', NULL, '{\"dispatchConfig\":null,\"_targetInst\":null,\"nativeEvent\":null,\"_dispatchListeners\":null,\"_dispatchIns', NULL, 'e10adc3949ba59abbe56e057f20f883e', '', '2020-08-30 15:56:58', '2025-03-05 15:56:04', '2025-03-05 15:56:04', 1, 1, 1, 1, 1, NULL, NULL, '2025-08-02-688dd96ba1a3e.png', '{\"dispatchConfig\":null,\"_targetInst\":null,\"nativeEvent\":null,\"_dispatchListeners\":null,\"_dispatchInstances\":null,\"type\":null,\"target\":null,\"currentTarget\":null,\"eventPhase\":null,\"bubbles\":null,\"cancelable\":null,\"timeStamp\":null,\"defaultPrevented\":null,\"isTrusted\":null}', 99, '32', '{\"dispatchConfig\":null,\"_targetInst\":null,\"nativeE', '193132', 'Tech Wave', 'Shahrukh', 'dfgsg', 'mohammad jakir khan', 'HDFC Bank', '50100818682261', 'HDFC0007225', '8285392948', 5, '2025-07-22 21:05:41', NULL, NULL, 0),
-(6, 1000, 0, NULL, NULL, 244, 2, 16, 81200, 26, 16, 132, 70, 26, 16, 3, 0, 0, 0, 130800, 81200, 0, 'SURAJ TEAM', NULL, 'admin@gmail.com', NULL, 'e10adc3949ba59abbe56e057f20f883e', '', '2020-08-30 15:56:58', '2025-03-05 15:56:04', '2025-03-05 15:56:04', 1, 1, 1, 1, 1, NULL, NULL, '2025-07-17-6878fb153d099.jpg', 'SHANTI NAGAR OFFICE', 99, '25', 'Delhi', '193132', 'Tech Wave', 'Shahrukh', 'ASKPK2571J', 'mohammad jakir khan', 'HDFC Bank', '50100818682261', 'HDFC0007225', '09312121472', 6, '2025-07-17 19:01:01', NULL, NULL, 0);
+(6, 1000, 0, NULL, NULL, 244, 2, 16, 81200, 26, 16, 132, 70, 26, 16, 3, 0, 0, 0, 130800, 81200, 0, 'SHIVVEDA ECOM CRM', NULL, 'admin@gmail.com', NULL, 'e10adc3949ba59abbe56e057f20f883e', '', '2020-08-30 15:56:58', '2025-03-05 15:56:04', '2025-03-05 15:56:04', 1, 1, 1, 1, 1, NULL, NULL, '2025-07-17-6878fb153d099.jpg', 'SHANTI NAGAR OFFICE', 99, '25', 'Delhi', '193132', 'Tech Wave', 'Shahrukh', 'ASKPK2571J', 'mohammad jakir khan', 'HDFC Bank', '50100818682261', 'HDFC0007225', '09312121472', 6, '2025-07-17 19:01:01', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -6378,7 +6415,7 @@ ALTER TABLE `branch`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `countries`
@@ -6438,7 +6475,7 @@ ALTER TABLE `kyc_option`
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1345;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1347;
 
 --
 -- AUTO_INCREMENT for table `member_log`
@@ -6462,13 +6499,13 @@ ALTER TABLE `offer`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `package`
